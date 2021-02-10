@@ -13,7 +13,6 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     
     let view: UIView = {
         let vw = UIView()
-        vw.translatesAutoresizingMaskIntoConstraints = false
         vw.heightAnchor.constraint(equalToConstant: 100).isActive = true
         vw.widthAnchor.constraint(equalToConstant: 200).isActive = true
         return vw
@@ -21,14 +20,17 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     
     let label: UILabel = {
         let lb = UILabel()
-        lb.textAlignment = .center
+        lb.textAlignment = .left
+        lb.numberOfLines = 0
         lb.layer.cornerRadius = 10
+        lb.font = UIFont.boldSystemFont(ofSize: 20.0)
         return lb
     }()
     
     let categoryLabel: UILabel = {
         let cateLb = UILabel()
         cateLb.textAlignment = .center
+        cateLb.font = UIFont(name: "Georgia", size: 15.0)
         return cateLb
     }()
     
@@ -43,6 +45,7 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         contentView.addSubview(VstackView)
         setupLayout()
     }
@@ -61,13 +64,15 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     
     func configureCell(_ details: RestaurantDetail) {
         let image = details.image
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 175, height: 100))
+        
+        
         imageView.image =  image
         view.addSubview(imageView)
         label.text = details.name
         var str = ""
         for cate in details.categories {
-            str += "\(cate.rawValue)   "
+            str += "\(cate.rawValue) "
         }
         categoryLabel.text = str
     }

@@ -82,7 +82,8 @@ class RestaurantCollectionViewController: UICollectionViewController {
                 // create 2nd section(Images)
                 let ImageItems = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .absolute(200)))
                 ImageItems.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
-                let ImageGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.7/2.0)), subitems: [ImageItems])
+                let ImageGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)), subitem: ImageItems, count: 2)
+                
                 let ImageSection = NSCollectionLayoutSection(group: ImageGroup)
                 return ImageSection
             }
@@ -96,12 +97,6 @@ class RestaurantCollectionViewController: UICollectionViewController {
         case .category:
             selectedIndex = indexPath.item
             let selectedCategory = Item.categories[selectedIndex].category!
-            
-//            if let cell = collectionView.cellForItem(at: indexPath) {
-//                cell.backgroundColor = cell.isSelected ? UIColor(hexString: "#99ccff") : .white
-//                cell.tintColor = cell.isSelected ? .white : UIColor(hexString: "#99ccff")
-//            }
-            
             filteredItem = Item.details.filter {($0.details != nil)}.filter {$0.details!.categories.contains(Categories(rawValue: selectedCategory)!)}
             updateDataSource(filteredItem)
         case .images:
