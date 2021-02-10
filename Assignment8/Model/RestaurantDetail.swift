@@ -17,11 +17,11 @@ struct RestaurantDetail: Hashable {
 enum Categories: String,CaseIterable {
     case asia = "Asia"
     case europe = "Europe"
-    case italian = "Italian"
+    case korean = "Korean"
     case noodle = "Noodle"
     case meat = "Meat"
     case fish = "Fish"
-    case africa = "Africa"
+    case italian = "Italian"
     case turkish = "Turkish"
     case japanese = "Japanese"
     case chinese = "Chinese"

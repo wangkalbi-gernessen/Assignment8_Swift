@@ -39,7 +39,7 @@ class RestaurantCollectionViewController: UICollectionViewController {
         collectionView.setCollectionViewLayout(generateLayout(), animated: false)
         createDataSource()
     }
-                
+    
     // create data source for snapshot
     private func createDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
@@ -70,11 +70,13 @@ class RestaurantCollectionViewController: UICollectionViewController {
             switch sectionType {
             case .category:
                 // create 1st section(filter tabs)
-                let filterItems = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(110), heightDimension: .absolute(50)))
-                filterItems.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-                let filterGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(2.0), heightDimension: .absolute(70)), subitems: [filterItems])
+                let filterItems = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50)))
+                filterItems.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                let filterGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .absolute(60)), subitems: [filterItems])
                 let filterSection = NSCollectionLayoutSection(group: filterGroup)
                 filterSection.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+                filterSection.interGroupSpacing = 10
+                filterSection.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
                 return filterSection
             case .images:
                 // create 2nd section(Images)
@@ -93,20 +95,22 @@ class RestaurantCollectionViewController: UICollectionViewController {
         switch sectionType {
         case .category:
             selectedIndex = indexPath.item
-            let category = Item.categories[selectedIndex].category!
-            print(category)
-            filteredItem = Item.details.filter {($0.details != nil)}.filter {$0.details!.categories.contains(Categories(rawValue: category)!)}
+            let selectedCategory = Item.categories[selectedIndex].category!
+            
+//            if let cell = collectionView.cellForItem(at: indexPath) {
+//                cell.backgroundColor = cell.isSelected ? UIColor(hexString: "#99ccff") : .white
+//                cell.tintColor = cell.isSelected ? .white : UIColor(hexString: "#99ccff")
+//            }
+            
+            filteredItem = Item.details.filter {($0.details != nil)}.filter {$0.details!.categories.contains(Categories(rawValue: selectedCategory)!)}
             updateDataSource(filteredItem)
         case .images:
             break
-        default:
-            fatalError("nothing")
         }
     }
     
     // update snapshot and datasource
     func updateDataSource(_ filteredItemArray: [Item]) {
-        print(filteredItemArray)
         var updatedSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         updatedSnapshot.appendSections(Section.allCases)
         // create snapshot for filtered items

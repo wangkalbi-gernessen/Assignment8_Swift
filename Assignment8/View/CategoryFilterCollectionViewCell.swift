@@ -10,7 +10,7 @@ import UIKit
 class CategoryFilterCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "CategoryFilterCollectionViewCell"
-    
+
     let label: UILabel = {
         let lb = UILabel()
         lb.textAlignment = .center
@@ -20,6 +20,13 @@ class CategoryFilterCollectionViewCell: UICollectionViewCell {
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
+    
+    override var isSelected: Bool {
+        didSet {
+            contentView.backgroundColor = isSelected ? UIColor(hexString: "#99ccff") : .white
+            label.textColor = isSelected ? .white : UIColor(hexString: "#99ccff")
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

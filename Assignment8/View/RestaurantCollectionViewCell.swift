@@ -10,12 +10,12 @@ import UIKit
 class RestaurantCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "RestaurantCollectionViewCell"
-
+    
     let view: UIView = {
         let vw = UIView()
         vw.translatesAutoresizingMaskIntoConstraints = false
         vw.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        vw.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        vw.widthAnchor.constraint(equalToConstant: 200).isActive = true
         return vw
     }()
     
@@ -61,7 +61,7 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     
     func configureCell(_ details: RestaurantDetail) {
         let image = details.image
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
         imageView.image =  image
         view.addSubview(imageView)
         label.text = details.name
