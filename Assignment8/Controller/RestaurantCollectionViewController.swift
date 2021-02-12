@@ -66,13 +66,13 @@ class RestaurantCollectionViewController: UICollectionViewController {
         { (sectionIndex, layoutEnvironment) ->
             NSCollectionLayoutSection? in
             let sectionType = self.sections[sectionIndex]
-            
+             
             switch sectionType {
             case .category:
                 // create 1st section(filter tabs)
-                let filterItems = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50)))
-                filterItems.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-                let filterGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .absolute(60)), subitems: [filterItems])
+                let filterItems = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40)))
+                filterItems.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+                let filterGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .absolute(30)), subitems: [filterItems])
                 let filterSection = NSCollectionLayoutSection(group: filterGroup)
                 filterSection.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
                 filterSection.interGroupSpacing = 10
@@ -80,11 +80,12 @@ class RestaurantCollectionViewController: UICollectionViewController {
                 return filterSection
             case .images:
                 // create 2nd section(Images)
-                let ImageItems = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .absolute(200)))
-                ImageItems.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
-                let ImageGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)), subitem: ImageItems, count: 2)
+                let ImageItems = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1.0)))
+                ImageItems.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+                let ImageGroup = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1/2)), subitem: ImageItems, count: 2)
                 
                 let ImageSection = NSCollectionLayoutSection(group: ImageGroup)
+                ImageSection.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
                 return ImageSection
             }
         }

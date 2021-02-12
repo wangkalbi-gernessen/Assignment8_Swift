@@ -11,11 +11,12 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "RestaurantCollectionViewCell"
     
-    let view: UIView = {
-        let vw = UIView()
-        vw.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        vw.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        return vw
+    let imageView: UIImageView = {
+        let igv = UIImageView()
+        igv.contentMode = .scaleAspectFill
+        igv.clipsToBounds = true
+        igv.backgroundColor = .blue
+        return igv
     }()
     
     let label: UILabel = {
@@ -35,11 +36,11 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     }()
     
     lazy var VstackView: UIStackView = {
-        let Vstack = UIStackView(arrangedSubviews: [view,label,categoryLabel])
+        let Vstack = UIStackView(arrangedSubviews: [imageView,label,categoryLabel])
         Vstack.axis = .vertical
         Vstack.distribution = .fill
         Vstack.alignment = .leading
-        Vstack.spacing = 3
+        Vstack.spacing = 0
         return Vstack
     }()
     
@@ -55,6 +56,8 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     }
     
     func setupLayout() {
+        imageView.widthAnchor.constraint(equalTo: VstackView.widthAnchor, multiplier: 1).isActive = true
+        imageView.heightAnchor.constraint(equalTo: VstackView.heightAnchor, multiplier: 1/2).isActive = true
         VstackView.translatesAutoresizingMaskIntoConstraints = false 
         VstackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         VstackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
@@ -64,11 +67,7 @@ class RestaurantCollectionViewCell: UICollectionViewCell {
     
     func configureCell(_ details: RestaurantDetail) {
         let image = details.image
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 175, height: 100))
-        
-        
         imageView.image =  image
-        view.addSubview(imageView)
         label.text = details.name
         var str = ""
         for cate in details.categories {
